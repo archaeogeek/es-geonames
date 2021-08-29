@@ -1,22 +1,22 @@
 #/bin/bash
 
 REGION=GB
-CONTAINER=elasticsearch
+ESURL=http://localhost:9200
 ESVERSION=6.4.2
 PYTHONEXE=python3
 
 echo "Starting Docker container and data volume..."
-sudo docker run -d -p 9200:9200 -v $PWD/geonames_index/:/usr/share/elasticsearch/data elasticsearch:$ESVERSION
+docker run -d -p 9200:9200 -v $PWD/geonames_index/:/usr/share/elasticsearch/data elasticsearch:$ESVERSION
 
-echo "Downloading Geonames gazetteer..."
+#echo "Downloading Geonames gazetteer..."
 wget http://download.geonames.org/export/dump/$REGION.zip
 echo "Unpacking Geonames gazetteer..."
 unzip -o $REGION.zip
 
 echo "Creating mappings for the fields in the Geonames index..."
-curl -XPUT '${CONTAINER}:9200/geonames' -H 'Content-Type: application/json' -d @geonames_mapping.json
+curl -XPUT "${ESURL}/geonames" -H 'Content-Type: application/json' -d @geonames_mapping.json
 
-echo "Loading gazetteer into Elasticsearch..."
+#echo "Loading gazetteer into Elasticsearch..."
 $PYTHONEXE geonames_elasticsearch_loader.py
 
 echo "Done"
