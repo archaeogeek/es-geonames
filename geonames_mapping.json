@@ -4,7 +4,6 @@
         "number_of_replicas" : 1
     },
     "mappings" : {
-       "geoname" : {
         "properties" : {
           "geonameid" : {"type" : "keyword", "index": "true"},
           "name" : {"type" : "text"},
@@ -26,6 +25,5 @@
           "timzeone" :  {"type" : "keyword", "index":  "true"},
           "modification_date" : {"type" : "date", "format": "date"}
           }
-       }
    } 
 }
