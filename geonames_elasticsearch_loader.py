@@ -121,7 +121,7 @@ def documents(reader, es):
 
 if __name__ == "__main__":
     t = time.time()
-    f = open('allCountries.txt', 'rt')
+    f = open('GB.txt', 'rt')
     #f = open('shortcountries.txt', 'rt')
     reader = csv.reader(f, delimiter='\t')
     actions = documents(reader, es)
