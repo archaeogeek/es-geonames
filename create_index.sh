@@ -13,7 +13,7 @@ echo "Unpacking Geonames gazetteer..."
 unzip $REGION.zip
 
 echo "Creating mappings for the fields in the Geonames index..."
-curl -XPUT '$CONTAINER:9200/geonames' -H 'Content-Type: application/json' -d @geonames_mapping.json
+curl -XPUT '${CONTAINER}:9200/geonames' -H 'Content-Type: application/json' -d @geonames_mapping.json
 
 echo "Loading gazetteer into Elasticsearch..."
 python geonames_elasticsearch_loader.py
